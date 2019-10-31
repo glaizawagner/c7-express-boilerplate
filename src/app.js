@@ -17,17 +17,16 @@ app.use(helmet());
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send('Hello, world!');
+    res.json({message: 'Hello, world!'});
 });
 
-//error handle middleware
-app.use(function errorHandle(error, req, res,next) {
+//error handler middleware
+app.use(function errorHandler(error, req, res, next) {
   let response;
-
+  console.error(error);
   if(NODE_ENV === 'production'){
     response = { error : { message: 'server error'} };
   } else {
-    console.error(error);
     response = { error : { message: 'server error'} };
   }
   res.status(500).json(response);
